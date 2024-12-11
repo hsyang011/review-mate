@@ -1,10 +1,7 @@
-package me.yangsongi.reviewmate.entity;
+package me.yangsongi.reviewmate.domain;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @Entity
 @Getter
@@ -34,5 +31,13 @@ public class Review {
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false) // 한 명의 유저는 여러개의 리뷰를 달 수 있습니다.
     private User user; // 작성한 유저 정보
+
+    @Builder
+    public Review(User user, Product product, int score, String content) {
+        this.user = user;
+        this.product = product;
+        this.score = score;
+        this.content = content;
+    }
 
 }
