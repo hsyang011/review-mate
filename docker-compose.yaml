@@ -1,0 +1,11 @@
+services:
+  mysql:
+    container_name: reviewmate_db
+    image: mysql:8.0
+    environment:
+      MYSQL_ROOT_PASSWORD: hs1234  # root 계정의 비밀번호 설정
+      MYSQL_DATABASE: reviewmate  # reviewmate라는 DB 생성
+    ports:
+      - "3306:3306"
+    restart: always
+    command: --default-authentication-plugin=mysql_native_password
