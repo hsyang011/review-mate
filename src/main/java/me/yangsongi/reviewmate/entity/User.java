@@ -6,7 +6,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
@@ -21,7 +20,7 @@ public class User {
     @Column(name = "id", updatable = false)
     private Long id;
 
-    @Column(name = "email", nullable = false, unique = true)
+    @Column(name = "email", unique = true)
     private String email; // 유저 이메일
 
     @Column(name = "username", unique = true)

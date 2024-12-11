@@ -1,0 +1,7 @@
+-- V2__Create_User_table.sql
+CREATE TABLE IF NOT EXISTS user (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    email VARCHAR(255) NOT NULL UNIQUE,
+    username VARCHAR(255) UNIQUE,
+    password VARCHAR(255) NOT NULL
+);
