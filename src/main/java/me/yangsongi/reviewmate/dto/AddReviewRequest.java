@@ -16,12 +16,13 @@ public class AddReviewRequest {
     private int score;
     private String content;
 
-    public Review toEntity(User user, Product product) {
+    public Review toEntity(User user, Product product, String photoUrl) {
         return Review.builder()
                 .user(user)
                 .product(product)
                 .score(score)
                 .content(content)
+                .photoUrl(photoUrl)
                 .build();
     }
 

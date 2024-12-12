@@ -1,10 +1,7 @@
 package me.yangsongi.reviewmate.domain;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.List;
 
@@ -31,5 +28,12 @@ public class User {
 
     @OneToMany(mappedBy = "user") // 1 대 다 관계
     private List<Review> reviews; // 유저가 작성한 리뷰 목록
+
+    @Builder
+    public User(String email, String username, String password) {
+        this.email = email;
+        this.username = username;
+        this.password = password;
+    }
 
 }

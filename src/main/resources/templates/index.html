@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>REVIEW MATE 플랫폼</title>
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="../css/style.css">
 </head>
 <body>
 <div class="container">
@@ -47,24 +47,28 @@
                 <img src="https://via.placeholder.com/200" alt="상품 1">
                 <p>상품 1</p>
                 <span>₩50,000</span>
+                <button onclick="location.href='/products/1'">상세 보기</button>
                 <button onclick="location.href='/products/1/reviews'">리뷰 작성</button>
             </div>
             <div class="product-item">
                 <img src="https://via.placeholder.com/200" alt="상품 2">
                 <p>상품 2</p>
                 <span>₩70,000</span>
+                <button onclick="location.href='/products/2'">상세 보기</button>
                 <button onclick="location.href='/products/2/reviews'">리뷰 작성</button>
             </div>
             <div class="product-item">
                 <img src="https://via.placeholder.com/200" alt="상품 3">
                 <p>상품 3</p>
                 <span>₩30,000</span>
+                <button onclick="location.href='/products/3'">상세 보기</button>
                 <button onclick="location.href='/products/3/reviews'">리뷰 작성</button>
             </div>
             <div class="product-item">
                 <img src="https://via.placeholder.com/200" alt="상품 4">
                 <p>상품 4</p>
                 <span>₩80,000</span>
+                <button onclick="location.href='/products/4'">상세 보기</button>
                 <button onclick="location.href='/products/4/reviews'">리뷰 작성</button>
             </div>
         </div>
@@ -80,6 +84,6 @@
     <!-- 푸터 끝 -->
 </div>
 
-<script src="script.js"></script>
+<script src="../js/script.js"></script>
 </body>
 </html>

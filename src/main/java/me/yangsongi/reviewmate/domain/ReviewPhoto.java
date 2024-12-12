@@ -1,4 +1,4 @@
-package me.yangsongi.reviewmate.entity;
+package me.yangsongi.reviewmate.domain;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

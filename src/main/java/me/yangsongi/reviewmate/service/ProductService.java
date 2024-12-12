@@ -4,14 +4,13 @@ import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import me.yangsongi.reviewmate.dto.AddReviewRequest;
 import me.yangsongi.reviewmate.domain.Product;
-import me.yangsongi.reviewmate.domain.Review;
 import me.yangsongi.reviewmate.domain.User;
 import me.yangsongi.reviewmate.repository.ProductRepository;
 import me.yangsongi.reviewmate.repository.ReviewRepository;
 import me.yangsongi.reviewmate.repository.UserRepository;
 import me.yangsongi.reviewmate.util.FileUtil;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 
@@ -71,7 +70,7 @@ public class ProductService {
 //        return ((currentAverage * currentCount) + newScore) / (currentCount + 1);
 //    }
 
-    public void addReview(Long productId, AddReviewRequest request) {
+    public void addReview(Long productId, MultipartFile image, AddReviewRequest request) {
         // 1. 상품 조회
         Product product = productRepository.findById(productId)
                 .orElseThrow(() -> new EntityNotFoundException("상품을 찾을 수 없습니다."));
@@ -80,7 +79,19 @@ public class ProductService {
         User user = userRepository.findById(request.getUserId())
                 .orElseThrow(() -> new EntityNotFoundException("유저를 찾을 수 없습니다."));
 
-        reviewRepository.save(request.toEntity(user, product));
+        // 3. 이미지 업로드 처리
+        String photoUrl = null;
+        if (image != null && !image.isEmpty()) {
+            try {
+                photoUrl = FileUtil.upload(image);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
+
+        reviewRepository.save(request.toEntity(user, product, photoUrl));
+
+
 
         // 6. 상품의 리뷰 개수 및 평균 점수 업데이트
 //        int updatedReviewCount = product.getReviewCount() + 1;

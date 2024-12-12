@@ -33,11 +33,12 @@ public class Review {
     private User user; // 작성한 유저 정보
 
     @Builder
-    public Review(User user, Product product, int score, String content) {
+    public Review(User user, Product product, int score, String content, String photoUrl) {
         this.user = user;
         this.product = product;
         this.score = score;
         this.content = content;
+        this.photoUrl = photoUrl;
     }
 
 }
