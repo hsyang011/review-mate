@@ -2,9 +2,11 @@ package me.yangsongi.reviewmate.service;
 
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
+import me.yangsongi.reviewmate.domain.Review;
 import me.yangsongi.reviewmate.dto.AddReviewRequest;
 import me.yangsongi.reviewmate.domain.Product;
 import me.yangsongi.reviewmate.domain.User;
+import me.yangsongi.reviewmate.dto.ReviewListResponse;
 import me.yangsongi.reviewmate.repository.ProductRepository;
 import me.yangsongi.reviewmate.repository.ReviewRepository;
 import me.yangsongi.reviewmate.repository.UserRepository;
@@ -13,6 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -102,4 +105,17 @@ public class ProductService {
 //        productRepository.save(product);
     }
 
+    public ReviewListResponse reviewList(Long productId, int cursor, int size) {
+        // Repository에서 데이터 조회
+        List<Review> reviews = reviewRepository.findReviewsByProductIdWithPaging(productId, cursor, size);
+
+        System.out.println("reviews.size() = " + reviews.size());
+
+        // 총 리뷰 개수와 평균 점수 계산
+        int totalCount = reviewRepository.countByProductId(productId);
+        double averageScore = reviewRepository.calculateAverageScore(productId);
+
+        // 응답 객체 생성
+        return new ReviewListResponse(totalCount, averageScore, cursor + size, reviews);
+    }
 }

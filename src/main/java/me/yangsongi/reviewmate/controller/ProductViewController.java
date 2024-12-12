@@ -16,16 +16,16 @@ public class ProductViewController {
 
     private final ProductRepository productRepository;
 
-    @GetMapping("/products/{productId}/reviews")
-    public String addReview(@RequestParam(required = false) Long id, Model model) {
-        if (id == null) { // id가 없으면 생성입니다.
-
-        } else { // id가 없으면 수정입니다.
-//            Review review =
-        }
-
-        return "write";
-    }
+//    @GetMapping("/products/{productId}/reviews")
+//    public String addReview(@RequestParam(required = false) Long id, Model model) {
+//        if (id == null) { // id가 없으면 생성입니다.
+//
+//        } else { // id가 없으면 수정입니다.
+////            Review review =
+//        }
+//
+//        return "write";
+//    }
 
     @GetMapping("/products/{productId}")
     public String view(@PathVariable Long productId, Model model) {

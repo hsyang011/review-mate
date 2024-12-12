@@ -2,9 +2,8 @@ package me.yangsongi.reviewmate.controller;
 
 import lombok.RequiredArgsConstructor;
 import me.yangsongi.reviewmate.dto.AddReviewRequest;
+import me.yangsongi.reviewmate.dto.ReviewListResponse;
 import me.yangsongi.reviewmate.service.ProductService;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -28,6 +27,15 @@ public class ProductApiController {
 
         productService.addReview(productId, image, request);
         return ResponseEntity.ok().build();
+    }
+
+    @GetMapping(value = "/products/{productId}/reviews")
+    public ResponseEntity<ReviewListResponse> reviewList(
+            @PathVariable Long productId,
+            @RequestParam(required = false, defaultValue = "0") int cursor,
+            @RequestParam(required = false, defaultValue = "10") int size) {
+        ReviewListResponse response = productService.reviewList(productId, cursor, size);
+        return ResponseEntity.ok().body(response);
     }
 
 }

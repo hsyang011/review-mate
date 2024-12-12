@@ -26,9 +26,6 @@ public class User {
     @Column(name = "password")
     private String password; // 유저 비밀번호
 
-    @OneToMany(mappedBy = "user") // 1 대 다 관계
-    private List<Review> reviews; // 유저가 작성한 리뷰 목록
-
     @Builder
     public User(String email, String username, String password) {
         this.email = email;
