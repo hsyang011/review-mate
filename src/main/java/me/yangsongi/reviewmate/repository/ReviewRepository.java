@@ -11,7 +11,7 @@ import java.util.List;
 
 public interface ReviewRepository extends JpaRepository<Review, Long> {
 
-    boolean existsByProductAndUser(Product product, User user);
+//    boolean existsByProductAndUser(Product product, User user);
     @Query("SELECT r FROM Review r WHERE r.product.id = :productId AND r.id < :cursor ORDER BY r.id DESC")
     List<Review> findReviewsByProductIdWithPaging(Long productId, int cursor, int size);
 
