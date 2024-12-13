@@ -93,7 +93,7 @@
    클라이언트에서 JSON 데이터를 문자열로 전송하고 파일 데이터를 함께 포함하도록 요청 형식을 지정했습니다.  
 
 2. **DTO와 컨트롤러 구현**  
-   - JSON 데이터를 매핑할 DTO 클래스(`ReviewRequestDTO`)를 설계했습니다.  
+   - JSON 데이터를 매핑할 DTO 클래스(`AddReviewRequest`)를 설계했습니다.  
    - 컨트롤러에서 `@RequestPart`를 사용하여 JSON 데이터와 파일 데이터를 분리해 처리했습니다.  
    ```java
    @PostMapping(value = "/products/{productId}/reviews", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
