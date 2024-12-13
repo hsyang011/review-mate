@@ -6,6 +6,7 @@
 - **Docker-compose 기반 배포**  
   프로젝트는 Docker-compose를 이용하여 컨테이너화되어 있으며, MySQL 데이터베이스와 함께 배포됩니다.
 
+
 ## 기술 스택
 
 - **Backend**: Spring Boot 3.x
@@ -14,6 +15,7 @@
 - **File Storage**: Amazon S3 (더미 통합)
 - **Deployment**: Docker, Docker-compose
 - **Version Control**: Git
+
 
 ## 테이블 명세
 
@@ -58,17 +60,14 @@
 | photourl        | VARCHAR(255)| 사진 URL             |
 | review_id       | INT         | 리뷰 ID (외래키)      |
 
+
 ## 데이터 관계 설명
 
 1. **User와 Review**  
    - 1:N 관계입니다. 하나의 사용자는 여러 개의 리뷰를 작성할 수 있습니다.
 
-2. **Review와 Product**  
-   - N:1 관계입니다. 하나의 상품은 여러 리뷰를 가질 수 있습니다.
+2. **Product와 Review**  
+   - 1:N 관계입니다. 하나의 상품은 여러 리뷰를 가질 수 있습니다.
 
 3. **Review와 ReviewPhoto**  
    - 1:N 관계입니다. 하나의 리뷰는 여러 개의 사진을 가질 수 있으며, 사진은 리뷰의 부가 정보를 제공합니다.
-
-4. **Product 테이블의 `review_count`와 `average_score`**  
-   - `review_count`: 상품에 작성된 리뷰의 개수를 저장하며, 리뷰 작성 시 자동으로 업데이트됩니다.
-   - `average_score`: 상품의 평균 평점을 저장하며, 새로운 리뷰 작성 시 자동 계산됩니다.
