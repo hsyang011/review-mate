@@ -58,9 +58,7 @@
 | photourl        | VARCHAR(255)| 사진 URL             |
 | review_id       | INT         | 리뷰 ID (외래키)      |
 
----
-
-### 데이터 관계 설명
+## 데이터 관계 설명
 
 1. **User와 Review**  
    - 1:N 관계입니다. 하나의 사용자는 여러 개의 리뷰를 작성할 수 있습니다.
@@ -74,5 +72,3 @@
 4. **Product 테이블의 `review_count`와 `average_score`**  
    - `review_count`: 상품에 작성된 리뷰의 개수를 저장하며, 리뷰 작성 시 자동으로 업데이트됩니다.
    - `average_score`: 상품의 평균 평점을 저장하며, 새로운 리뷰 작성 시 자동 계산됩니다.
-
----
