@@ -112,45 +112,8 @@
 **문제 상황**  
 `User`와 `Review` 엔티티 간 양방향 관계로 인해 Jackson 직렬화 시 `StackOverflowError`가 발생했습니다.  
 특히, `User` 엔티티의 `reviews` 필드에서 순환 참조가 발생해 무한 루프 문제가 나타났습니다.
-{
-    "totalCount": 2,
-    "averageScore": 4.0,
-    "cursor": 20,
-    "reviews": [
-        {
-            "id": 2,
-            "score": 4,
-            "content": "이걸 사용하고 제 인생이 달라졌습니다.",
-            "photoUrl": null,
-            "product": {
-                "id": 1,
-                "name": "상품1",
-                "description": "상품1에 대한 설명입니다.",
-                "price": 50000.0,
-                "reviewCount": 0,
-                "averageScore": 5.0
-            },
-            "user": {
-                "id": 1,
-                "email": "foo@gmail.com",
-                "username": "foo",
-                "password": "1234",
-                "reviews": [
-                    {
-                        "id": 1,
-                        "score": 4,
-                        "content": "이걸 사용하고 제 인생이 달라졌습니다.",
-                        "photoUrl": null,
-                        "product": {
-                            "id": 1,
-                            "name": "상품1",
-                            "description": "상품1에 대한 설명입니다.",
-                            "price": 50000.0,
-                            "reviewCount": 0,
-                            "averageScore": 5.0
-                        }, ....................
-            
----
+
+![image](https://github.com/user-attachments/assets/b232b5ad-d476-4e2a-9002-509d4bfbb11f)
 
 **해결 과정**  
 
