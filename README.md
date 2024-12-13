@@ -6,6 +6,7 @@
 - **Docker-compose 기반 배포**  
   프로젝트는 Docker-compose를 이용하여 컨테이너화되어 있으며, MySQL 데이터베이스와 함께 배포됩니다.
 
+---
 
 ## 기술 스택
 
@@ -16,6 +17,7 @@
 - **Deployment**: Docker, Docker-compose
 - **Version Control**: Git
 
+---
 
 ## 테이블 명세
 
@@ -60,6 +62,7 @@
 | photourl        | VARCHAR(255)| 사진 URL             |
 | review_id       | INT         | 리뷰 ID (외래키)      |
 
+---
 
 ## 데이터 관계 설명
 
@@ -72,6 +75,7 @@
 3. **Review와 ReviewPhoto**  
    - 1:N 관계입니다. 하나의 리뷰는 여러 개의 사진을 가질 수 있으며, 사진은 리뷰의 부가 정보를 제공합니다.
   
+---
 
 ## 트러블슈팅
 
@@ -82,8 +86,6 @@
 
 - JSON 데이터 매핑 실패  
 - 파일 처리와 JSON 파싱 간 충돌  
-
----
 
 **해결 과정**  
 
@@ -99,6 +101,8 @@
             @PathVariable Long productId,
             @RequestPart(value = "image", required = false) MultipartFile image,
             @RequestPart(value = "request") AddReviewRequest request) {
+   ```
+
 
         productService.addReview(productId, image, request);
         return ResponseEntity.ok().body("Review created successfully.");
