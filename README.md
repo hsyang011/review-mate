@@ -71,3 +71,35 @@
 
 3. **Review와 ReviewPhoto**  
    - 1:N 관계입니다. 하나의 리뷰는 여러 개의 사진을 가질 수 있으며, 사진은 리뷰의 부가 정보를 제공합니다.
+  
+
+## 트러블슈팅
+
+### 파일 업로드와 JSON 요청 동시 처리 문제
+
+**문제 상황**  
+리뷰 작성 시 텍스트(JSON 데이터)와 이미지 파일(멀티파트 데이터)을 동시에 처리해야 했습니다. 그러나 Spring Boot에서 `multipart/form-data` 요청 내 JSON 데이터와 파일 데이터를 분리해 처리하는 과정에서 다음과 같은 문제가 발생했습니다:
+
+- JSON 데이터 매핑 실패  
+- 파일 처리와 JSON 파싱 간 충돌  
+
+---
+
+**해결 과정**  
+
+1. **요청 형식 설계**  
+   클라이언트에서 JSON 데이터를 문자열로 전송하고 파일 데이터를 함께 포함하도록 요청 형식을 지정했습니다.  
+
+2. **DTO와 컨트롤러 구현**  
+   - JSON 데이터를 매핑할 DTO 클래스(`ReviewRequestDTO`)를 설계했습니다.  
+   - 컨트롤러에서 `@RequestPart`를 사용하여 JSON 데이터와 파일 데이터를 분리해 처리했습니다.  
+   ```java
+   @PostMapping(value = "/products/{productId}/reviews", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
+    public ResponseEntity<String> addReview(
+            @PathVariable Long productId,
+            @RequestPart(value = "image", required = false) MultipartFile image,
+            @RequestPart(value = "request") AddReviewRequest request) {
+
+        productService.addReview(productId, image, request);
+        return ResponseEntity.ok().body("Review created successfully.");
+    }
