@@ -106,3 +106,66 @@
         return ResponseEntity.ok().body("Review created successfully.");
     }
     ```
+
+### 순환 참조 문제
+
+**문제 상황**  
+`User`와 `Review` 엔티티 간 양방향 관계로 인해 Jackson 직렬화 시 `StackOverflowError`가 발생했습니다.  
+특히, `User` 엔티티의 `reviews` 필드에서 순환 참조가 발생해 무한 루프 문제가 나타났습니다.
+{
+    "totalCount": 2,
+    "averageScore": 4.0,
+    "cursor": 20,
+    "reviews": [
+        {
+            "id": 2,
+            "score": 4,
+            "content": "이걸 사용하고 제 인생이 달라졌습니다.",
+            "photoUrl": null,
+            "product": {
+                "id": 1,
+                "name": "상품1",
+                "description": "상품1에 대한 설명입니다.",
+                "price": 50000.0,
+                "reviewCount": 0,
+                "averageScore": 5.0
+            },
+            "user": {
+                "id": 1,
+                "email": "foo@gmail.com",
+                "username": "foo",
+                "password": "1234",
+                "reviews": [
+                    {
+                        "id": 1,
+                        "score": 4,
+                        "content": "이걸 사용하고 제 인생이 달라졌습니다.",
+                        "photoUrl": null,
+                        "product": {
+                            "id": 1,
+                            "name": "상품1",
+                            "description": "상품1에 대한 설명입니다.",
+                            "price": 50000.0,
+                            "reviewCount": 0,
+                            "averageScore": 5.0
+                        }, ....................
+            
+---
+
+**해결 과정**  
+
+1. **양방향 관계 해소**  
+   - `User` 엔티티의 `reviews` 필드와 관련된 `@OneToMany` 매핑을 삭제하여 양방향 관계를 단방향으로 변경했습니다.  
+   - 순환 참조가 발생하지 않도록 엔티티 간의 의존성을 단순화했습니다.
+
+2. **필요한 데이터 접근 방식 변경**  
+   - `User` 엔티티에서 리뷰 데이터를 직접 참조하지 않고, 필요할 때 `Review` 엔티티를 통해 데이터를 조회하도록 로직을 수정했습니다.
+
+---
+
+**결과**  
+양방향 관계를 단방향으로 변경한 후 순환 참조 문제가 해결되었습니다.  
+Jackson 직렬화와 Hibernate의 동작이 정상적으로 작동했으며, 데이터 구조를 더 간결하게 유지할 수 있었습니다.
+
+---
+
