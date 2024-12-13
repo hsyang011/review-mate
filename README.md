@@ -101,9 +101,8 @@
             @PathVariable Long productId,
             @RequestPart(value = "image", required = false) MultipartFile image,
             @RequestPart(value = "request") AddReviewRequest request) {
-   ```
-
 
         productService.addReview(productId, image, request);
         return ResponseEntity.ok().body("Review created successfully.");
     }
+    ```
