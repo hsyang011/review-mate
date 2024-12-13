@@ -50,10 +50,29 @@
 | review_count    | INT         | 상품의 리뷰 갯수       |
 | average_score   | INT         | 상품의 평균 리뷰 점수  |
 
-### 4. ReviewPhoto 테이블
+### 4. ReviewPhoto 테이블 - 리뷰에 등록될 사진이 여러장일 경우, Review테이블과 N:1 관계를 맺습니다.
 
 | 컬럼명          | 데이터 타입 | 설명                 |
 |-----------------|-------------|----------------------|
 | reviewPhoto_id  | INT         | 리뷰 사진 고유 ID     |
 | photourl        | VARCHAR(255)| 사진 URL             |
 | review_id       | INT         | 리뷰 ID (외래키)      |
+
+---
+
+### 데이터 관계 설명
+
+1. **User와 Review**  
+   - 1:N 관계입니다. 하나의 사용자는 여러 개의 리뷰를 작성할 수 있습니다.
+
+2. **Review와 Product**  
+   - N:1 관계입니다. 하나의 상품은 여러 리뷰를 가질 수 있습니다.
+
+3. **Review와 ReviewPhoto**  
+   - 1:N 관계입니다. 하나의 리뷰는 여러 개의 사진을 가질 수 있으며, 사진은 리뷰의 부가 정보를 제공합니다.
+
+4. **Product 테이블의 `review_count`와 `average_score`**  
+   - `review_count`: 상품에 작성된 리뷰의 개수를 저장하며, 리뷰 작성 시 자동으로 업데이트됩니다.
+   - `average_score`: 상품의 평균 평점을 저장하며, 새로운 리뷰 작성 시 자동 계산됩니다.
+
+---
